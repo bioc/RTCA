@@ -1,0 +1,70 @@
+## import
+importClassesFrom(Biobase, AnnotatedDataFrame, AssayData, eSet,
+                  Versioned, VersionedBiobase,
+                  ExpressionSet, MIAME, Versions)
+
+importClassesFrom(methods, character, data.frame, numeric, POSIXct)
+
+importMethodsFrom(Biobase, exprs, "exprs<-", featureData,
+                  "featureData<-", "featureNames<-", pData, "pData<-",
+                  "phenoData<-")
+
+importMethodsFrom(methods, show)
+
+importFrom(graphics, abline, grid, layout, legend, lines, matplot, par,
+           plot, segments, title)
+
+importFrom(methods, "@<-", as, is, new, validObject)
+
+importFrom(RColorBrewer, brewer.pal)
+
+importFrom(stats, approx, quantile, relevel, sd, smooth.spline, spline,
+           time)
+
+importFrom(utils, read.table)
+importFrom(gtools, invalid)
+
+## exports
+### class
+exportClasses("RTCAtimeline", #"RTCAhistory",
+              "RTCA")
+### methods
+exportMethods("actionTrack",
+              "actionTrack<-",
+              "timeUnit",
+              "timeUnit<-",
+              "startTime",
+              "startTime<-",
+              "getAction",
+              "addAction",
+              "rmAction",
+              "orderAction",
+              "updateAction",
+              "reset",
+              "expID",
+              "expID<-",
+              "timeline",
+              "timeline<-",
+              "timepoints",
+              "timepoints<-",
+              "plot")
+### functions
+export("alphaNames",
+       "repairAlphaName",
+       "alphaNames2Pos",
+       "rowcol2pos",
+       "factor2numeric",
+       "relevels",
+       "parseRTCA",
+       "combineRTCA",
+       "nearestTimeIndex",
+       "sliceRTCA")
+export("ratioTransform",
+       "smoothTransform",
+       "interpolationTransform",
+       "derivativeTransform",
+       "rgrTransform")
+export("plotGridEffect",
+       "controlView",
+       "plateView")
+       

@@ -1,0 +1,163 @@
+%\VignetteIndexEntry{RTCAtransformation: Discussion of transformation methods of RTCA data}
+%\VignetteDepends{}
+%\VignettePackage{}
+
+\documentclass[11pt]{article}
+
+\usepackage{mathptmx}	 
+\usepackage[scaled=0.92]{helvet}
+\usepackage{courier}
+\usepackage{multirow}
+\usepackage{url}
+\renewcommand{\multirowsetup}{\centering}
+
+\usepackage{times}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{longtable}
+\usepackage[pdftex]{graphicx}
+\SweaveOpts{keep.source=TRUE,eps=FALSE,pdf=TRUE,prefix=FALSE} 
+
+% R part
+\newcommand{\todo}[2]{\textit{\textbf{To do:} (#1) #2}}
+\newcommand{\fixme}[2]{\textit{\textbf{FIXME:} (#1) #2}}
+\newcommand{\R}[1]{{\textsf{#1}}}
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
+\newcommand{\Rclass}[1]{{\textit{#1}}}
+\newcommand{\Metas}[1]{{\texttt{#1}}}
+\newcommand{\myincfig}[3]{%
+  \begin{figure}[htbp]
+    \begin{center}
+      \includegraphics[width=#2]{#1}
+      \caption{\label{#1}#3}
+    \end{center}
+  \end{figure}
+}
+
+% trademark, copyright and registered
+\def\TReg{\textsuperscript{\textregistered}}
+\def\TCop{\textsuperscript{\textcopyright}}
+\def\TTra{\textsuperscript{\texttrademark}}
+\def\xSys{xCELLigence\TTra System }
+
+\begin{document}
+\setkeys{Gin}{width=0.9\textwidth}
+\title{RTCAtransformation: Discussion of transformation methods of RTCA data}
+\author{Jitao David Zhang}
+\maketitle
+
+\begin{abstract}
+  The \xSys provides a dimentionless parameter Cell Index (CI) to
+  reflect the biological status of the monitored cells. In this
+  vignette we discuss the concept of the cell index briefly, and
+  introduces several transformation approaches to allow statistical
+  inferences of the RTCA assays.
+\end{abstract}
+
+\section{Introduction}
+
+To demonstrate different types of transformation algorithms
+implemented in the \Rpackage{RTCA} package, we first load required
+Bioconductor packages.
+
+<<lib, echo=TRUE>>=
+library(xtable)
+library(RTCA)
+@ 
+
+And we load a dataset (with its annotation) provided with the package as example:
+<<dataset, echo=TRUE>>=
+ofile <-  system.file("extdata/testOutput.csv", package="RTCA")
+pfile <- system.file("extdata/testOutputPhenoData.csv", package="RTCA")
+pData <- read.csv(pfile, sep="\t", row.names="Well")
+metaData <- data.frame(labelDescription=c(
+                         "Rack number",
+                         "siRNA catalogue number",
+                         "siRNA gene symbol",
+                         "siRNA EntrezGene ID",
+                         "siRNA targeting accession"
+                         ))
+phData <- new("AnnotatedDataFrame", data=pData, varMetadata=metaData)
+x <- parseRTCA(ofile, phenoData=phData)
+@ 
+
+<<dims, echo=FALSE, results=hide>>=
+xTimePointNo <- dim(x)[[1]]
+xSampleNo <- dim(x)[[2]]
+@ 
+
+The object \Robject{x} is an instance of the \Rclass{RTCA} class,
+which extends the \Rclass{ExpressionSet} class structure in the
+\Rpackage{Biobase} package. It contains the raw data of
+\Sexpr{xSampleNo} samples in \Sexpr{xTimePointNo} time points.
+
+\section{Manipulation}
+\subsection{Smooth Transformation}
+\emph{Smooth Transformation} smoothes the RTCA curves by fitting a
+cubic smoothing spline. It provides more 'flat' data compared to the
+raw values due to the smoothing. While it is useful for
+visualization, the smooth transformation must be used with care when modelling or statistical
+procedures are performed later.
+
+The transformation is performed with the following syntax:
+
+<<smoothTransform, echo=TRUE>>=
+xSmooth <- smoothTransform(x)
+@ 
+
+\subsection{Interpolation Transformation}
+
+The \emph{RTCA} device can record the cell index at irregular time
+intervals. For example, two sampling time points per hour at the first
+48 hour and one time point per hour at the later 48 hour. Some
+algorithms and time-series model, however, requires data points
+distributed with regular time intervals. The \emph{interpolation
+  transformation}, as its name suggests, interpolates the RTCA-readout
+to regular intervals specified by the user. Several methods could be
+chosen for the interpolation, with the linear interpolation as the
+default method.
+
+Similarly as the smooth transformation, the interpolation can be
+called as easily as the following example shows:
+<<interpolationTranform, echo=TRUE>>=
+xInter <- interpolationTransform(x)
+@ 
+
+\section{Methods}
+
+\subsection{Derivative Transformation}
+The \emph{derivative transformation} calculates the growth rate of the
+RTCA-readouts by its first derivative against time. As an alternative
+to the ratio normalization proposed by the device provider, the
+derivative transformation is independent of the choice of the
+normalising time point, which has to be given manually by the user and
+thereby introduces subjectivity in the analysis. 
+
+An example of the derivative transformation:
+<<derivTransform, echo=TRUE>>=
+xDeriv <- derivativeTransform(x)
+@ 
+
+\subsection{Relative Growth Rate Transformation}
+The \emph{relative growth rate transformation} is a derivative from
+the simple \emph{derivative transformation} by dividing the first
+derivative with the raw value at that time point. It is analogue to
+the \emph{relative growth rate} known in the population genetics where
+the mathematic model asummes that the growth rate is proportional to
+the population size.
+
+This feature is by now experimental and we refer interested users to
+the manual page of the funtion:
+<<rgrTransform, echo=TRUE>>=
+xRgr <- rgrTransform(x)
+@ 
+
+\section{Session Info}
+The script runs within the following session:
+<<sessionInfo, echo=FALSE, results=tex>>=
+toLatex(sessionInfo())
+@
+
+\end{document}
