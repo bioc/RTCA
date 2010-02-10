@@ -87,7 +87,7 @@ parseRTCA <- function(file,dec=".", phenoData, skipWell,...) {
   scans <- scan(file, what=character(0), sep="\n")
   ## experimentID
   expIdIndex <- grep("Experiment ID",scans)
-  expId <- gsub(".*ID:\\s*([[:alnum:]]*)[[:space:]]*", "\\1", scans[expIdIndex], extended=TRUE)
+  expId <- gsub(".*ID:\\s*([[:alnum:]]*)[[:space:]]*", "\\1", scans[expIdIndex])
   
   skipnum <- grep("^Time", scans)-1
   dt <- read.table(file, skip=skipnum, sep="\t",head=TRUE,dec=dec,...)

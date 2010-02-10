@@ -1,0 +1,3 @@
+Version 1.1.1
+Bug Fix:
++ The parseRTCA function removes 'extended=TRUE' option in calling grep, since this option is obsolete (thanks Nishant)
