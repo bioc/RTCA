@@ -1,3 +1,6 @@
 Version 1.1.1
+New Features:
++ Add 'spectramaxImport' function (moved from internal caUtils package) for WST validation assays, which can also be applied elsewhere in combination with 'cellHTS2' package
 Bug Fix:
 + The parseRTCA function removes 'extended=TRUE' option in calling grep, since this option is obsolete (thanks Nishant)
++ Modify the Makefile since the public name of the package is 'RTCA'

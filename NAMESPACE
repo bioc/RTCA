@@ -67,4 +67,4 @@ export("ratioTransform",
 export("plotGridEffect",
        "controlView",
        "plateView")
-       
+export("spectramaxImport")
