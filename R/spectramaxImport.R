@@ -12,15 +12,22 @@ parseSpectramaxText <- function(txt) {
   
   cns <- sprintf("%02d", 1:ncol)
   rns <- LETTERS[1:nrow]
-  
+
   ## by column
   well <- paste(rns, rep(cns,each=length(rns)),sep="")
   val <- as.numeric(valueMatrix)
+
+  ## order to by row
+  wellOrder <- order(well)
+  well <- well[wellOrder]
+  val <- val[wellOrder]
+  
   out <- list(data.frame(well = I(well),
-                         val = as.numeric(val)),
+                         val = val),
               txt = I(txt))
   return(out)
 }
+
 
 spectramaxImport <- function(file, encoding="latin1") {
   txt <- lapply(file, readLines, encoding=encoding)
