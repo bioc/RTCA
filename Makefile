@@ -19,7 +19,7 @@
 
 R=R-devel
 Rstable=R
-PKG          := xcelligence
+PKG          := RTCA
 PKG_VERSION  := dist
 
 PKG_ROOT_DIR := $(shell pwd)
