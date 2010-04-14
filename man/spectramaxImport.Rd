@@ -33,7 +33,7 @@ The character vector \emph{txt} contains a copy of the file contents.
   cellHTS2 package documentation.
 }
 \examples{
-wstFiles <- dir(system.file("extdata/", package="RTCA"),
+wstFiles <- dir(system.file("extdata", package="RTCA"),
 pattern="^WST.*csv$", full.names=TRUE)
 spectramaxImport(wstFiles[1])
 
