@@ -429,8 +429,8 @@ controlView <- function(rtca,
 
   res.ref <- list(mean=sapply(res, function(x) x$mean),
                   sd=sapply(res, function(x) x$sd))
-  names(res.ref$mean) <- names(res.ref$sd) <- levels(genesymbols)
-  return(res.ref)
+  colnames(res.ref$mean) <- colnames(res.ref$sd) <- levels(genesymbols)
+  return(invisible(res.ref))
 }
 
 ## display the curve of a plate in one figure
