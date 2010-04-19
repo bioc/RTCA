@@ -392,6 +392,7 @@ controlView <- function(rtca,
   genesymbols <- relevels(factor(genesymbol), genesymbol)
   if(missing(cols))
     cols <- brewer.pal(nlevels(genesymbols),"Set2")
+  res <- list()
   for (i in 1:nlevels(genesymbols)) {
     gs <- levels(genesymbols)[i]
     gsindex <- grep(paste("^",gs,"$",sep=""),pdata$GeneSymbol)
@@ -413,6 +414,7 @@ controlView <- function(rtca,
         lines(timeint, y, col=cols[i], lwd=3)
       }
     }
+    res[[i]] <- list(mean=groupmean, sd=groupsd)
   }
   grid()
   legend(legendpos, legend=levels(genesymbols), col=cols, lwd=4, cex=1.1, bty="n", ncol=ncol)
@@ -424,6 +426,11 @@ controlView <- function(rtca,
   if(any(normpoint) && normline) {
     abline(v=timeint[which(normpoint)[1]], lwd=3, lty=5)
   }
+
+  res.ref <- list(mean=sapply(res, function(x) x$mean),
+                  sd=sapply(res, function(x) x$sd))
+  names(res.ref$mean) <- names(res.ref$sd) <- levels(genesymbols)
+  return(res.ref)
 }
 
 ## display the curve of a plate in one figure
