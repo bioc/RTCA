@@ -55,6 +55,38 @@ rowcol2pos <- function(row=1, column=1, plateFormat=c("96", "384")) {
   return(pos)
 }
 
+uniqueLength <- function(x,...) {
+  length(unique(x,...))
+}
+
+getPositionIndex <- function(x, alphaNameColumn="Well", type=c("row", "column")) {
+  type <- match.arg(type, c("row","column"))
+  wells <- pData(x)[, alphaNameColumn]
+
+  if(!is.null(wells)) {
+    pos <- alphaNames2Pos(as.character(wells))[, type]
+    return(pos)
+  } else {
+    return(NULL)
+  }
+}
+
+uniqueRows <- function(x,...) {
+  unique(getPositionIndex(x,..., type="row"))
+}
+
+uniqueRowsLength <- function(x,...) {
+  uniqueLength(getPositionIndex(x,..., type="row"))
+}
+
+uniqueCols <- function(x,...) {
+  unique(getPositionIndex(x,..., type="column"))
+}
+
+uniqueColsLength <- function(x,...) {
+  uniqueLength(getPositionIndex(x,..., type="column"))
+}
+
 ##----------------------------------------##
 ## factor functions
 ##----------------------------------------##

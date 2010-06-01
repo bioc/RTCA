@@ -9,7 +9,8 @@
   to provide hints of potential row/column effect of the plate
 }
 \usage{
-plotGridEffect(rtca, mode = c("column", "row"), xlab = "time point", ylab = "readout", legend = TRUE, ...)
+plotGridEffect(rtca, mode = c("column", "row"), xlab = "time point",
+ylab = "readout", legend = TRUE, col, ...)
 }
 \arguments{
   \item{rtca}{An object of \code{\linkS4class{RTCA}}}
@@ -18,6 +19,7 @@ plotGridEffect(rtca, mode = c("column", "row"), xlab = "time point", ylab = "rea
   \item{xlab}{x-axis label}
   \item{ylab}{y-axis label}
   \item{legend}{logical, whether the legend should be added}
+  \item{col}{Color of the curves}
   \item{\dots}{Further parameters passed to \code{\link{plot}} function}
 }
 \details{

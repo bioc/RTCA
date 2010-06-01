@@ -356,26 +356,29 @@ myheatmap.2 <- function (x, Rowv = TRUE, Colv = if (symm) "Rowv" else TRUE,
   return(list(mean=gridmean, sd=gridsd))
 }
 
-plotGridEffect <- function(rtca, mode=c("column","row"), xlab="time point", ylab="readout",legend=TRUE,...) {
+plotGridEffect <- function(rtca, mode=c("column","row"), xlab="time point", ylab="readout",legend=TRUE,
+                           col, ...) {
   mode <- match.arg(mode)
   grid <- .gridEffect(rtca, mode)
   mean <- grid[["mean"]]
   sd <- grid[["sd"]]
   require(RColorBrewer)
-  cols <- brewer.pal(ncol(mean),"Set3")
+  if(missing(col)) {
+    col <- brewer.pal(ncol(mean),"Set3")
+  }
   plot(1:nrow(mean), rep(max(mean), nrow(mean)), type="n", ylim=c(min(mean,na.rm=T), max(mean,na.rm=T)*1.2),
        ylab=ylab, xlab=xlab,...)
   for(i in 1:ncol(mean)) {
     for(j in 1:nrow(mean)) {
-      segments(j, mean[j,i]-sd[j,i],j, mean[j,i]+sd[j,i], col=cols[i], lwd=0.5)
+      segments(j, mean[j,i]-sd[j,i],j, mean[j,i]+sd[j,i], col=col[i], lwd=0.5)
     }
   }
   for(i in 1:ncol(mean)) {
-    lines(1:nrow(mean), mean[,i], col=cols[i], lwd=4)
+    lines(1:nrow(mean), mean[,i], col=col[i], lwd=4)
   }
   if(legend) {
     legend("topright",
-           legend=1:ncol(mean), lty=1, lwd=4, col=cols, ncol=4, bty="n", title=mode)
+           legend=1:ncol(mean), lty=1, lwd=4, col=col, ncol=4, bty="n", title=mode)
   }
 }
 
