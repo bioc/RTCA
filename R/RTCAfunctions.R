@@ -38,7 +38,9 @@ alphaNames2Pos <- function(x) {
   rowl <- sapply(x, function(x) grep(substring(x,1,1),LETTERS))
   coll <- sapply(x, function(x) grep(substring(x, 2,3), sprintf("%02d",1:50)))
   df <- data.frame(row=rowl, column=coll)
-  rownames(df) <- x
+  if(!any(duplicated(x)) {
+    rownames(df) <- x
+  }
   return(df)
 }
 
