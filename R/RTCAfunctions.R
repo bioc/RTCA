@@ -33,14 +33,20 @@ repairAlphaName <- function(x) {
 
 ## convert alpha name to position index (integer)
 alphaNames2Pos <- function(x) {
+  x <- as.character(x)
   nchars <- sapply(x, nchar)
-  stopifnot(all(nchars==3))
+  not.compatible <- nchars!=3
   rowl <- sapply(x, function(x) grep(substring(x,1,1),LETTERS))
+  rowl[sapply(rowl, length)==0] <- NA
+  rowl <- unlist(rowl)
   coll <- sapply(x, function(x) grep(substring(x, 2,3), sprintf("%02d",1:50)))
+  coll[sapply(coll, length)==0] <- NA
+  coll <- unlist(coll)
   df <- data.frame(row=rowl, column=coll)
   if(!any(duplicated(x))) {
     rownames(df) <- x
   }
+  df[not.compatible,] <- c(NA, NA)
   return(df)
 }
 
