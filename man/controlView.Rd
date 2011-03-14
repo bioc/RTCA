@@ -10,12 +10,13 @@
   of the \code{RTCA} object must contain a field named \dQuote{GeneSymbol}.
 }
 \usage{
-controlView(rtca, genesymbol = c("Allstar", "COPB2", "GFP", "mock", "PLK1", "WEE1"), cols, ylim, smooth = FALSE, group = TRUE, ylab = "Normalized cell index", xlab = "Time interval (hour)", drawsd = TRUE, normline = TRUE, ncol = 1, legendpos = "topleft", ...)
+controlView(rtca, genesymbol = c("Allstar", "COPB2", "GFP", "mock", "PLK1", "WEE1"), cols, ylim, smooth = FALSE, group = TRUE, ylab = "Normalized cell index", xlab = "Time interval (hour)", drawsd = TRUE, normline = TRUE, ncol = 1, legendpos = "topleft", pData.column="GeneSymbol",...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{rtca}{An object of \code{\linkS4class{RTCA}.}To use the function the phenoData field
-  of the \code{RTCA} object must contain a field named \dQuote{GeneSymbol}}
+  \item{rtca}{An object of \code{\linkS4class{RTCA}}.To use the
+    function, the phenoData must contain a column which name is
+    specified by the \code{pData.column} parameter. }
   \item{genesymbol}{character, gene symbols to be plotted. }
   \item{cols}{character, colors used by the provided gene symbols}
   \item{ylim}{y-axis lim}
@@ -33,6 +34,8 @@ controlView(rtca, genesymbol = c("Allstar", "COPB2", "GFP", "mock", "PLK1", "WEE
   \code{\link{ratioTransform}} for the concept of the \emph{base-time}}
   \item{ncol}{integer, legend column number}
   \item{legendpos}{character, legend position}
+  \item{pData.column}{The column which the \code{genesymbol} parameter
+    will be matched with}
   \item{\dots}{other parameters passed to the \code{\link{plot}} function}
 }
 \details{

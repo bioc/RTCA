@@ -385,7 +385,12 @@ plotGridEffect <- function(rtca, mode=c("column","row"), xlab="time point", ylab
 controlView <- function(rtca,
                         genesymbol=c("Allstar","COPB2","GFP","mock", "PLK1","WEE1"),
                         cols,
-                        ylim,smooth=FALSE, group=TRUE, ylab="Normalized cell index", xlab="Time interval (hour)",  drawsd=TRUE, normline=TRUE, ncol=1, legendpos="topleft",...) {
+                        ylim,smooth=FALSE, group=TRUE,
+                        ylab="Normalized cell index", xlab="Time interval (hour)",
+                        drawsd=TRUE, normline=TRUE, ncol=1,
+                        legendpos="topleft",
+                        pData.column="GeneSymbol",
+                        ...) {
   timeint <- timepoints(rtca)
   frame <- exprs(rtca)
   pdata <- pData(rtca)
@@ -395,10 +400,12 @@ controlView <- function(rtca,
   genesymbols <- relevels(factor(genesymbol), genesymbol)
   if(missing(cols))
     cols <- brewer.pal(nlevels(genesymbols),"Set2")
+  if(!pData.column %in% colnames(pData(rtca)))
+    stop(sprintf("'%s' does not exist in the pData. It should match the gene symbols", pData.column))
   res <- list()
   for (i in 1:nlevels(genesymbols)) {
     gs <- levels(genesymbols)[i]
-    gsindex <- grep(paste("^",gs,"$",sep=""),pdata$GeneSymbol)
+    gsindex <- grep(paste("^",gs,"$",sep=""),pdata[, pData.column])
     if(group) {
       gscols <- frame[,gsindex, drop=FALSE]
       gscols <- gscols[,!apply(gscols, 2, function(x) all(is.na(x))), drop=FALSE]
