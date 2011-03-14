@@ -130,6 +130,9 @@ parseRTCA <- function(file,dec=".", phenoData, skipWell,...) {
   expId <- gsub(".*ID:\\s*([[:alnum:]]*)[[:space:]]*", "\\1", scans[expIdIndex])
   
   skipnum <- grep("^Time", scans)-1
+  if(length(skipnum)==0) {
+    stop("No line in the RTCA file starts with 'Time'. In case the first column is empty, user should delete it.")
+  }
   dt <- read.table(file, skip=skipnum, sep="\t",head=TRUE,dec=dec,...)
   dt <- dt[-1,] ## 0 is doubled
   dt <- dt[,-2] ## remove time interval
