@@ -24,7 +24,7 @@ nearestTimeIndex(rtca, time)
   An integer, the index of the nearest time point
 }
 \author{
-  Jitao David Zhang \email{j.zhang@dkfz.de}
+  Jitao David Zhang \email{jitao_david.zhang@roche.com}
 }
 \seealso{
   \code{\link{timepoints}} to return all time points of an

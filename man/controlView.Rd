@@ -45,7 +45,7 @@ controlView(rtca, genesymbol = c("Allstar", "COPB2", "GFP", "mock", "PLK1", "WEE
   \code{NULL}, the function is called for its side effect
 }
 \author{
-  Jitao David Zhang \email{j.zhang@dkfz.de}
+  Jitao David Zhang \email{jitao_david.zhang@roche.com}
 }
 \seealso{
   \code{\linkS4class{RTCA}}

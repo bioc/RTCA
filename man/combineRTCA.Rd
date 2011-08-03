@@ -33,7 +33,7 @@ combineRTCA(list)
   A new \code{RTCA} object
 }
 \author{
-  Jitao David Zhang \email{j.zhang@dkfz.de}
+  Jitao David Zhang \email{jitao_david.zhang@roche.com}
 }
 \examples{
 ## An artificial example

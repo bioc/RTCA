@@ -23,7 +23,7 @@ smoothTransform(object, ...)
    An \code{\linkS4class{RTCA}} object populated with smoothed values
 }
 \author{
-  Jitao David Zhang \email{j.zhang@dkfz.de}
+  Jitao David Zhang \email{jitao_david.zhang@roche.com}
 }
 \note{
   \code{\link{ratioTransform}} performs ratio transformation recommended

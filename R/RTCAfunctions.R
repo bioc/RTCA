@@ -123,7 +123,7 @@ relevels <- function (x, refs)
 ##----------------------------------------##
 ## file I/O
 ##----------------------------------------##
-parseRTCA <- function(file,dec=".", phenoData, skipWell,...) {
+parseRTCA <- function(file,dec=".", phenoData, maskWell,...) {
   scans <- scan(file, what=character(0), sep="\n")
   ## experimentID
   expIdIndex <- grep("Experiment ID",scans)
@@ -134,8 +134,11 @@ parseRTCA <- function(file,dec=".", phenoData, skipWell,...) {
     stop("No line in the RTCA file starts with 'Time'. In case the first column is empty, user should delete it.")
   }
   dt <- read.table(file, skip=skipnum, sep="\t",head=TRUE,dec=dec,...)
-  dt <- dt[-1,] ## 0 is doubled
+
   dt <- dt[,-2] ## remove time interval
+  dt.rowDup <- duplicated(dt[,1L])
+  if(any(dt.rowDup))
+    dt <- dt[!dt.rowDup,]
   rownames(dt) <- dt[,1]
 
   tintervals <- dt[,1]
@@ -152,15 +155,28 @@ parseRTCA <- function(file,dec=".", phenoData, skipWell,...) {
   stopifnot(length(tintervals) == nrow(dt))
 
   ## abnormal
-    if(!missing(skipWell)) {
-      abgrep <- grep(skipWell, colnames(dt))
-      if(length(abgrep) > 0) {
-        for(i in seq(along=abgrep)) {
-          dt[,abgrep[i]] <- rep(NA, nrow(dt))
-        }
+  if(!missing(maskWell)) {
+    inColnames <- maskWell %in% colnames(dt)
+    if(!all(inColnames)) {## multiple names or single pattern
+      if(length(maskWell)!=1) { ## multiple names
+        warning(sprintf("Not all wells to be masked can be found in the column names, and following wells are ignored:\n%s\n",
+                        paste(maskWell[!inColnames], collapse=",")))
+        maskWell <- maskWell[inColnames]
+        abgrep <- unique(match(maskWell, colnames(dt)))
+      } else { ## single pattern
+        abgrep <- grep(maskWell, colnames(dt))
+      }
+    } else { ## multiple names
+      abgrep <- unique(match(maskWell, colnames(dt)))
+    }
+    
+    if(length(abgrep) > 0) {
+      for(i in seq(along=abgrep)) {
+        dt[,abgrep[i]] <- rep(NA, nrow(dt))
       }
     }
-
+  }
+  
   x <- new("RTCA", expID=expId)
   exprs(x) <- as.matrix(dt)
   timepoints(x) <- tintervals

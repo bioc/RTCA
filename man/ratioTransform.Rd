@@ -36,7 +36,7 @@ ratioTransform(object, time)
   value. The normalized values of all wells are uniformly 1 at the base-time.
 }
 \author{
-  Jitao David Zhang \email{j.zhang@dkfz.de}
+  Jitao David Zhang \email{jitao_david.zhang@roche.com}
 }
 \seealso{
    \code{\link{smoothTransform}} and \code{\link{interpolationTransform}}

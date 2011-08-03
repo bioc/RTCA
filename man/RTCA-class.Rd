@@ -103,7 +103,7 @@ Class \code{\link{Versioned-class}}, by class "ExpressionSet", distance 4.
       for brief introduction into RTCA}
   }
 }
-\author{ Jitao David Zhang \email{j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \email{jitao_david.zhang@roche.com} }
 \examples{
 new("RTCA", expID="testExp01")
 }

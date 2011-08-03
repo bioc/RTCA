@@ -87,7 +87,7 @@
       for brief introduction into RTCA}
     }
 }
-\author{  Jitao David Zhang \email{j.zhang@dkfz.de} }
+\author{  Jitao David Zhang \email{jitao_david.zhang@roche.com} }
 \seealso{
   \code{\linkS4class{RTCA}}
 }

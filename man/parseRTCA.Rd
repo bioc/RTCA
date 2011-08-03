@@ -2,19 +2,20 @@
 \Rdversion{1.1}
 \alias{parseRTCA}
 \title{
-  Parse RTCA output file
+  PARSE RTCA OUTPUT FILE
 }
 \description{
   The function parses RTCA output file into \code{RTCA} object
 }
 \usage{
-parseRTCA(file, dec = ".", phenoData, skipWell, ...)
+parseRTCA(file, dec = ".", phenoData, maskWell, ...)
 }
 \arguments{
   \item{file}{character, name of the RTCA output file}
   \item{dec}{decimal sign of the file}
   \item{phenoData}{phenoData}
-  \item{skipWell}{character, well(s) to skip}
+  \item{maskWell}{character, either names or regular expression
+    pattern(s) for well(s) to mask}
   \item{\dots}{other parameters passed to \code{\link{read.table}}}
 }
 \details{
@@ -30,9 +31,13 @@ parseRTCA(file, dec = ".", phenoData, skipWell, ...)
   columns then record the read-out (\sQuote{Cell-Index}, or \sQuote{CI})
   of the device, with each well a role.
 
-  \code{phenoData} allows user to annotate the wells. \code{skipWell}
-  allows to skip wells in case, for example, they are known to be
-  contaminated.
+  \code{phenoData} allows user to annotate the wells.Its usage mimicks
+  the \code{ExpressionSet} object in the \code{Biobase} package.
+
+  \code{maskWell} allows to mask wells in case, for example, they are known to be
+  contaminated. The values can be either a vector of well names, or a
+  regular expression pattern for wells to be masked. To learn
+  regular expression patterns see \code{\link{grep}}.
 
 }
 \value{
@@ -42,7 +47,7 @@ parseRTCA(file, dec = ".", phenoData, skipWell, ...)
 \url{http://www.roche-applied-science.com/proddata/gpip/3_8_9_1_1_1.html}
 }
 \author{
-  Jitao David Zhang \email{j.zhang@dkfz.de}
+  Jitao David Zhang \email{jitao_david.zhang@roche.com}
 }
 \examples{
 require(RTCA)
@@ -62,7 +67,22 @@ metaData <- data.frame(labelDescription=c(
 phData <- new("AnnotatedDataFrame", data=pData, varMetadata=metaData)
 x <- parseRTCA(ofile, phenoData=phData)
 
-x
+print(x)
+
+## mask wells, e.g. due to unusual values
+x.skip <- parseRTCA(ofile, phenoData=phData, maskWell=c("D09"))
+x.skip.multiWells <- parseRTCA(ofile, phenoData=phData, maskWell=c("A01", "B01",
+"C02"))
+## skip the last row
+x.skip.pattern <- parseRTCA(ofile, phenoData=phData,
+maskWell=c("H[0-9]{2}"))
+
+## check the number of masked wells
+noMasked <- function(x) sum(apply(x, 2, function(x) all(is.na(x))))
+noMasked(exprs(x))
+noMasked(exprs(x.skip))
+noMasked(exprs(x.skip.multiWells))
+noMasked(exprs(x.skip.pattern))
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

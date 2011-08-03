@@ -444,18 +444,42 @@ controlView <- function(rtca,
 }
 
 ## display the curve of a plate in one figure
-plateView <- function(rtca,ylim,...) {
+plateView <- function(rtca,ylim,titles,...) {
   wellno <- ncol(rtca)
   stopifnot(wellno == 96) # only supports 96-well for now
   layout(matrix(1:96, nrow=8, ncol=12, byrow=TRUE))
   opar <- par(mgp=c(0,0,0), mar=c(0,1,1.5,0))
   express <- exprs(rtca)
   if(missing(ylim)) {
-    ylim <- c(quantile(express,0.02), quantile(express,0.98))
+    ylim <- c(quantile(express,0.02, na.rm=TRUE), quantile(express,0.98, na.rm=TRUE))
   }
-  titles <- rownames(pData(rtca))
+  
+  if(missing(titles) || length(titles) != dim(rtca)[2]) {
+    if("Well" %in% colnames(pData(rtca))) {
+      titles <- rtca$Well
+    } else {
+      titles <- rownames(pData(rtca))
+    }
+  }
+
+  lists <- list(...)
+  getPar <- function(name, lists) {
+    if(name %in% names(lists)) {
+      namev <- lists[[name]]
+      namev <- rep(namev, length.out=dim(rtca)[2L])
+##      lists <<- lists[-match(name, names(lists))]
+    } else {
+      namev <- rep(1L, length.out=dim(rtca)[2L])
+    }
+    return(namev)
+  }
+  lty <- getPar("lty", lists)
+  col <- getPar("col", lists)
+  lwd <- getPar("lwd", lists)
+
   for (i in 1:96) {
-    plot(timepoints(rtca),express[,i], type="l", xlab="", ylab="", axes=FALSE,ylim=ylim,...)
+    plot(timepoints(rtca),express[,i], type="l", xlab="", ylab="", axes=FALSE,ylim=ylim,
+         col=col[i], lty=lty[i], lwd=lwd[i])
     title(titles[i])
     abline(h=0, lty=2, col="darkgrey")
   }

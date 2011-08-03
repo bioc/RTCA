@@ -26,7 +26,7 @@ rgrTransform(object, smooth)
   TODO: reference
 }
 \author{
-  Jitao David Zhang <j.zhang@dkfz.de>
+  Jitao David Zhang <jitao_david.zhang@roche.com>
 }
 \seealso{
   \code{\link{derivativeTransform}} for first derivative. \code{\link{ratioTransform}} for ratio normalization

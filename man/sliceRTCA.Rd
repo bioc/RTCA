@@ -24,7 +24,7 @@ sliceRTCA(x, start, end)
   An object of \code{\linkS4class{RTCA}}
 }
 \author{
-  Jitao David Zhang \email{j.zhang@dkfz.de}
+  Jitao David Zhang \email{jitao_david.zhang@roche.com}
 }
 \examples{
   require(RTCA)

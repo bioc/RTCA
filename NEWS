@@ -1,3 +1,10 @@
+Version 1.5.2
++ plateView function had a typo which is now fixed
+
+Version 1.5.1
++ Option "skipWells" of function "parseRTCA" is renamed as "maskWells". It now accepts either well name(s) or a regular expression pattern as character string.
++ Internally the parseRTCA will not skip the first line automatically as it did before. Instead it first detects whether there are lines with duplicated time points; if so, it keeps the first appearance and removes the rest items. 
+
 Version 1.1.1
 New Features:
 + Add 'spectramaxImport' function (moved from internal caUtils package) for WST validation assays, which can also be applied elsewhere in combination with 'cellHTS2' package

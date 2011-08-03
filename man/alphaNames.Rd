@@ -48,7 +48,7 @@ rowcol2pos(row = 1, column=1, plateFormat=c("96","384"))
   See details
 }
 \author{
-  Jitao David Zhang \email{j.zhang@dkfz.de}
+  Jitao David Zhang \email{jitao_david.zhang@roche.com}
 }
 \examples{
 wells <- alphaNames()

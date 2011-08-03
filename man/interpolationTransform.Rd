@@ -37,7 +37,7 @@ interpolationTransform(object, interval=0.01, method=c("linear","constant","fmm"
 \value{
   An interpolated object of \code{\linkS4class{RTCA}}.
 }
-\author{Jitao David Zhang \email{j.zhang@dkfz.de}}
+\author{Jitao David Zhang \email{jitao_david.zhang@roche.com}}
 
 \seealso{
 \code{\link{rgrTransform}} stands for \emph{relative growth rate

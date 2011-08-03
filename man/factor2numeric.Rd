@@ -28,7 +28,7 @@ relevels(x, refs)
 \value{
   A vector of factor
 }
-\author{Jitao David Zhang \email{j.zhang@dkfz.de}}
+\author{Jitao David Zhang \email{jitao_david.zhang@roche.com}}
 \examples{
 ## factor2numeric
 numFac <- factor(c(3.5, 2.5, 2.5,3.5, 1))

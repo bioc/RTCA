@@ -27,7 +27,7 @@ A list of two items: one data frame (no name) and one character vector (\emph{tx
 The character vector \emph{txt} contains a copy of the file contents.
 }
 \author{
-  Jitao David Zhang <j.zhang@dkfz.de>
+  Jitao David Zhang <jitao_david.zhang@roche.com>
 }
 \seealso{
   cellHTS2 package documentation.
