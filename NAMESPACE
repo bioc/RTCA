@@ -14,7 +14,7 @@ importMethodsFrom(methods, show)
 importFrom(graphics, abline, grid, layout, legend, lines, matplot, par,
            plot, segments, title)
 
-importFrom(methods, "@<-", as, is, new, validObject)
+importFrom(methods, as, is, new, validObject)
 
 importFrom(RColorBrewer, brewer.pal)
 
