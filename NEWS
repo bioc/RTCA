@@ -1,3 +1,6 @@
+Version 1.19-0
+ + Makefile is now portable
+
 Version 1.7-1
 + To avoid confusion, "by Roche" has been removed from the software title.
 

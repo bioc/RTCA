@@ -362,7 +362,6 @@ plotGridEffect <- function(rtca, mode=c("column","row"), xlab="time point", ylab
   grid <- .gridEffect(rtca, mode)
   mean <- grid[["mean"]]
   sd <- grid[["sd"]]
-  require(RColorBrewer)
   if(missing(col)) {
     col <- brewer.pal(ncol(mean),"Set3")
   }

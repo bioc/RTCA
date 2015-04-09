@@ -133,7 +133,7 @@ parseRTCA <- function(file,dec=".", phenoData, maskWell,...) {
   if(length(skipnum)==0) {
     stop("No line in the RTCA file starts with 'Time'. In case the first column is empty, user should delete it.")
   }
-  dt <- read.table(file, skip=skipnum, sep="\t",head=TRUE,dec=dec,...)
+  dt <- read.table(file, skip=skipnum, sep="\t",header=TRUE,dec=dec,...)
 
   dt <- dt[,-2] ## remove time interval
   dt.rowDup <- duplicated(dt[,1L])
