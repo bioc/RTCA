@@ -11,18 +11,21 @@ importMethodsFrom(Biobase, exprs, "exprs<-", featureData,
 
 importMethodsFrom(methods, show)
 
-importFrom(graphics, abline, grid, layout, legend, lines, matplot, par,
-           plot, segments, title)
+importFrom(graphics, abline, grid, layout, legend, lines, matplot,
+           par, plot, segments, title, axis, hist, image, mtext,
+           plot.new, rect, text)
 
 importFrom(methods, as, is, new, validObject)
 
 importFrom(RColorBrewer, brewer.pal)
 
-importFrom(stats, approx, quantile, relevel, sd, smooth.spline, spline,
-           time)
+importFrom(stats, approx, quantile, relevel, sd, smooth.spline,
+           spline, time, as.dendrogram, density, dist, hclust, median,
+           order.dendrogram, reorder)
 
 importFrom(utils, read.table)
 importFrom(gtools, invalid)
+importFrom(Biobase, "assayDataElement<-")
 
 ## exports
 ### class

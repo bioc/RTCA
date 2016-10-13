@@ -63,7 +63,7 @@ interpolationTransform <- function(object, interval=0.01, method=c("linear","con
   itps <- seq(min(tps), max(tps), interval)
 
   res <- apply(readout, 2, .approxRTCAsingle, times=tps, newtimes=itps, method=method)
-  exprs(object) <- res
+  assayDataElement(object, "exprs", validate=FALSE) <- res
   timepoints(object) <- itps
 
   return(object)

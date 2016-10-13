@@ -178,10 +178,12 @@ parseRTCA <- function(file,dec=".", phenoData, maskWell,...) {
   }
   
   x <- new("RTCA", expID=expId)
-  exprs(x) <- as.matrix(dt)
+  assayDataElement(x, "exprs", validate=FALSE) <- as.matrix(dt)
   timepoints(x) <- tintervals
   if(missing(phenoData)) {
-    phenoData <- new("AnnotatedDataFrame", data=data.frame(Well=alphaNames(), GeneSymbol=""))
+      phenoData <- new("AnnotatedDataFrame",
+                       data=data.frame(Well=alphaNames(), GeneSymbol="",
+                                       row.names=colnames(dt)))
   }
   phenoData(x) <- phenoData
   return(x)
@@ -207,7 +209,7 @@ combineRTCA <- function(list) {
   newpdata$Plate <- factor(newpdata$Plate)
   
   newobj <- list[[1]]
-  exprs(newobj) <- newexprs
+  assayDataElement(newobj, "exprs", validate=FALSE) <- newexprs
   pData(newobj) <- newpdata
   
   return(newobj)
