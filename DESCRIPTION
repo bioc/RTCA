@@ -1,7 +1,7 @@
 Package: RTCA
 Type: Package
 Title: Open-source toolkit to analyse data from xCELLigence System (RTCA)
-Version: 1.35.0
+Version: 1.35.1
 Date: 2012-01-11
 Author: Jitao David Zhang
 Maintainer: Jitao David Zhang <davidvonpku@gmail.com>
@@ -12,4 +12,4 @@ Depends: methods,stats,graphics,Biobase,RColorBrewer, gtools
 Suggests: xtable
 Collate: AllClasses.R AllGenerics.R AllMethods.R algorithms.R visualization.R RTCAfunctions.R spectramaxImport.R
 URL: http://code.google.com/p/xcelligence/,http://www.xcelligence.roche.com/,http://www.nextbiomotif.com/Home/scientific-programming
-biocViews: CellBasedAssays, Infrastructure, Visualization, TimeCourse
+biocViews: ImmunoOncology, CellBasedAssays, Infrastructure, Visualization, TimeCourse
